@@ -1,0 +1,38 @@
+{
+  "name": "swivelassessment",
+  "version": "1.0.0",
+  "description": "assessment",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open",
+    "clean:reports":"(if exist cypress\\reports (rmdir /Q /S cypress\\reports)) && mkdir cypress\\reports && mkdir cypress\\reports\\mocha  &&  mkdir cypress\\reports\\mochareports",
+    "combine-reports": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/mochareports/report.json",
+    "generate-report": "npm run combine-reports && marge cypress/reports/mochareports/report.json -f report -o cypress/reports/mochareports -- inline",
+    "chrome:headless": "npm run clean:reports &&  cypress run -b chrome --headless",
+    "chrome:headed": "npm run clean:reports &&  cypress run -b chrome --headed",
+    "edge:headless": "npm run clean:reports &&  cypress run -b edge --headless",
+    "edge:headed": "npm run clean:reports &&  cypress run -b edge --headed",
+    "firefox:headless": "npm run clean:reports &&  cypress run -b firefox --headless",
+    "firefox:headed": "npm run clean:reports &&  cypress run -b firefox --headed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dilshan991/SwivelAssessment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dilshan991/SwivelAssessment/issues"
+  },
+  "homepage": "https://github.com/dilshan991/SwivelAssessment#readme",
+  "devDependencies": {
+    "cypress": "^12.9.0",
+    "cypress-mochawesome-reporter": "^3.3.0",
+    "cypress-multi-reporters": "^1.6.3",
+    "cypress-xpath": "^2.0.1",
+    "mocha": "^10.2.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0"
+  }
+}
