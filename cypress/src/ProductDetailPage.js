@@ -7,12 +7,8 @@ class ProductDetailPage {
         return cy.xpath('//li[' + type + ']/span/span/span/a', { timeout: 10000 });
     }
 
-    getProductPriceTextNorm() {
-        return cy.xpath('//div/span[@data-a-color="price"]/span[1]', { timeout: 10000 });
-    }
-
-    getIncorrectTitleProductPrice() {
-        return cy.xpath('//span[@id="price"]', { timeout: 10000 });
+    getProductPriceText() {
+        return cy.xpath('//table[@class="a-lineitem"]/tbody/tr[1]/td[3]/span', { timeout: 10000 });
     }
 
 

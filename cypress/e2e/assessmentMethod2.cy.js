@@ -96,8 +96,8 @@ describe('SwivelTech Test Automation Assessment-with global variable with hook f
     //Get product list item index and click
     seaResultObj.getSelectingProdListItem(propertyData.selectingItem).should('be.visible').then(($obj) => {
       cy.wrap($obj).click({ force: true });
-      cy.writeFile('executionLog.txt', "User clicked on the product list item index " + propertyData.SelectingItem + '\n', { flag: 'a+' })
-      cy.log("User clicked on the product list item index " + propertyData.SelectingItem);
+      cy.writeFile('executionLog.txt', "User clicked on the product list item index " + propertyData.selectingItem + '\n', { flag: 'a+' })
+      cy.log("User clicked on the product list item index " + propertyData.selectingItem);
     });
     cy.url().then(url => {
       cacheData.NextUrl = url;
@@ -116,29 +116,12 @@ describe('SwivelTech Test Automation Assessment-with global variable with hook f
 
 
     //Get product price into cacheData
-    //For some products having differnt xpath to retreive the price, As per our scenario this is the only product the fetch in result 
-
-    const errorBook = "Advanced PLC Programming using studio 5000 Part 1: Practical lessons";
-
-    if (cacheData.selectedProductItemName.includes(errorBook)) {
-      prodDetailPageObj.getIncorrectTitleProductPrice().then(($obj) => {
+      prodDetailPageObj.getProductPriceText().then(($obj) => {
         const ProductPrice = $obj.text()
         cacheData.ProductPrice = ProductPrice;
         cy.writeFile('executionLog.txt', "Get the product price as " + ProductPrice + '\n', { flag: 'a+' })
         cy.log("Get the product price as " + ProductPrice);
       });
-    }
-
-    else {
-      prodDetailPageObj.getProductPriceTextNorm().then(($obj) => {
-        const ProductPrice = $obj.text()
-        cy.log(ProductPrice);
-        cacheData.ProductPrice = ProductPrice;
-        cy.writeFile('executionLog.txt', "Get the product price as " + ProductPrice + '\n', { flag: 'a+' })
-        cy.log("Get the product price as " + ProductPrice);
-      });
-    }
-
 
     //Verify whether the item name of the Product Detail page is same as the item name obtained from the Product List page
     prodDetailPageObj.getProductDetailTitle().should('be.visible').then(($obj) => {

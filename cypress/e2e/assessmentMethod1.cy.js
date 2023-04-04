@@ -74,8 +74,8 @@ describe('SwivelTech Test Automation Assessment-reading json file', () => {
     cy.wait(10000);
     seaResultObj.getSelectingProdListItem(propertyData.selectingItem).should('be.visible').then(($obj) => {
       cy.wrap($obj).click({ force: true });
-      cy.writeFile('executionLog.txt', "User clicked on the product list item index " + propertyData.SelectingItem + '\n', { flag: 'a+' })
-      cy.log("User clicked on the product list item index " + propertyData.SelectingItem);
+      cy.writeFile('executionLog.txt', "User clicked on the product list item index " + propertyData.selectingItem + '\n', { flag: 'a+' })
+      cy.log("User clicked on the product list item index " + propertyData.selectingItem);
     });
 
     //Click on product type kindle soft copy or papercut
@@ -87,14 +87,10 @@ describe('SwivelTech Test Automation Assessment-reading json file', () => {
 
 
     //Get product price into cacheData
-    //For some products having differnt xpath to retreive the price, As per our scenario this is the only product the fetch in result 
-    const errorBook = "Advanced PLC Programming using studio 5000 Part 1: Practical lessons";
-
-
     cy.readFile('cypress/fixtures/cacheData.json').then((data) => {
       //Check if the product is different xpath containg product or not
-      if (data.selectedProductItemName.includes(errorBook)) {
-        prodDetailPageObj.getIncorrectTitleProductPrice().then(($obj) => {
+
+        prodDetailPageObj.getProductPriceText().then(($obj) => {
           const ProductPrice = $obj.text()
           cy.log(ProductPrice);
           cy.readFile('cypress/fixtures/cacheData.json').then((data) => {
@@ -104,21 +100,6 @@ describe('SwivelTech Test Automation Assessment-reading json file', () => {
             cy.log("Get the product price as " + ProductPrice);
           })
         });
-
-      }
-
-      else {
-        prodDetailPageObj.getProductPriceTextNorm().then(($obj) => {
-          const ProductPrice = $obj.text()
-          cy.log(ProductPrice);
-          cy.readFile('cypress/fixtures/cacheData.json').then((data) => {
-            data.ProductPrice = ProductPrice;
-            cy.writeFile('cypress/fixtures/cacheData.json', JSON.stringify(data));
-            cy.writeFile('executionLog.txt', "Get the product price as " + ProductPrice + '\n', { flag: 'a+' })
-            cy.log("Get the product price as " + ProductPrice);
-          })
-        });
-      }
     });
 
 
